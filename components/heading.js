@@ -24,8 +24,11 @@ export default props => {
   let text = children
 
   if (null == id) {
-    // If there are sub components, convert them to text
-    if (Array.isArray(children)) {
+    // If the sub component is inlineCode, convert to text
+    if (typeof children === 'object') {
+      text = children.props.children
+    } else if (Array.isArray(children)) {
+      // If there are sub components, convert them to text
       text = children
         .map(child => {
           return typeof child === 'object' ? child.props.children : child
